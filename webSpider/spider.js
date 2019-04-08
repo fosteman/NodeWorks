@@ -5,37 +5,50 @@
 * I may now choose async to simplify the most common flows.
 * */
 
-const request = require('request');
+
+const utilities = require('./promisify.js');
+/*
+* request module presents the following substack signature - request(url, (error, response, body) => {});
+* promisification will therefore pass it's own 'SpecialCallback' (err, result) => {} that reassembles ...args list provided to promisify(...args)
+* new signature of the request before it's invoked is: request(url, (reject , resolve) => { promise settlement achieved within this scope }),
+* finally it yields thenable\settlement
+* Appending last argument into the list adheres to NodeJS callback conventions: cb is passed last, therefore invoked as expected.
+* */
+const request = utilities.promisify(require('request'));
+//signature of async mkdirp(dir, opts, cb)
+const mkdirp = utilities.promisify(require('mkdirp'));
 const fs = require('fs');
-const mkdirp = require('mkdirp');
+//fs.readFile(path[, options], function callback (reject, resolve) {settlement}). Callback, once more, is set by promisification.
+const readFile = utilities.promisify(fs.readFile);
+const writeFile = utilities.promisify(fs.writeFile);
+
 const path = require('path');
-const utilities = require('utility');
 const TaskQueue = require('./TaskQueue');
 const downloadedUrls = new Map();
-
 const urlToFilename = (url) => url.split('/').pop();
 const async = require('async');
 const downloadQueue = async.queue(
     (taskData, callback) => spider(taskData.link, taskData.nesting - 1, callback),
     2);
 
-
-function download(url, filename, callback) {
+function download(url, filename) {
     console.log(`Downloading ${url}`);
     let body;
-    async.series([
-        callback => request(url, (err, response, resBody) => {
-                if (err) return callback(err);
-                body = resBody;
-                callback();
-        }),
-        mkdirp.bind(null, path.dirname(filename)),
-        callback => fs.writeFile(filename, body, callback),
-    ], err => {
-        if (err) return callback(err);
-        console.log(`Downloaded and saved: ${url}`);
-        callback(null, body);
-    });
+    //download returns either thenable object, either settlement of the response (from url request)
+    return request(url)
+    //response of the request, returned as
+        .then(response => {
+            body = response.body;
+            //no
+            return mkdirp(path.dirname(filename));
+        })
+        //writeFile is promising == thenable, hence onRejected is also registered by the process of promisification.
+        .then(() => writeFile(filename, body))
+        .then(() => {
+            console.log(`Downloaded and saved: ${url}`);
+            //finally, promise is fulfilled with value body.
+            return body;
+        });
 }
 
 function spiderLinks(currentUrl, body, nesting, callback) {
@@ -57,9 +70,14 @@ function spiderLinks(currentUrl, body, nesting, callback) {
 }
 
 function spider(url, nesting, callback) {
-    if(downloadedUrls.has(url)) return process.nextTick(callback);
+    if (downloadedUrls.has(url)) return process.nextTick(callback);
     downloadedUrls.set(url, true);
     const filename = urlToFilename(url);
+    //promisified version of fs.readFile
+    readFile(filename, 'utf8')
+        .then()
+        .catch();
+
     fs.readFile(filename, 'utf8', (err, body) => {
         if (err) return callback(err);
         download(url, filename, (err, body) => {
@@ -67,12 +85,7 @@ function spider(url, nesting, callback) {
         });
     });
 }
-spider(process.argv[2], (err, filename, downloaded) => {
-    if(err) {
-        console.log(err);
-    } else if(downloaded){
-        console.log(`Completed the download of "${filename}"`);
-    } else {
-        console.log(`"${filename}" was already downloaded`);
-    }
-});
+
+spider(process.argv[2], 1)
+    .then(() => console.log('Download complete'))
+    .catch(err => console.error(err));

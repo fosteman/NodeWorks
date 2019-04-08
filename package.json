@@ -1,0 +1,22 @@
+{
+  "name": "universal_package",
+  "version": "1.0.0",
+  "description": "npm package is used for everyproject in this directory.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "null"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "Timofei Shchepkin",
+  "license": "ISC",
+  "dependencies": {
+    "stamp": "^4.0.2",
+    "stampit": "^4.2.0"
+  }
+}
