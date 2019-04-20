@@ -4,7 +4,7 @@ only from executor function passed into Promise contructor.
 */
 const EventEmitter = require('events');
 
-class Roee extends EventEmitter {
+module.exports = class Roee extends EventEmitter {
 	constructor(executorFn) {
 		super();
 		const emit = this.emit.bind(this); //backup

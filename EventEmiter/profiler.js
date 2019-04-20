@@ -10,7 +10,7 @@ class Profiler {
 		this.lastTime = null;
 	}
 	start() {
-		this.lastTime = process.hrtime(); //high resolution timer
+		this.lastTime = process.hrtime(); //high resolution
 	}
 	end() {
 		const diff = process.hrtime(this.lastTime);
@@ -24,19 +24,20 @@ class Profiler {
 function factory(label) {
 	if (process.end.NODE_ENV === 'dev') return new Profiler(label);
 	else if (process.env.NODE_ENV === 'prod')
-		return { //duck typing
+		return { //dynamic typing, duck typing
 			start: function() {},
 			end: function() {}
 		}
 	else throw new Error('Wrong process.env');
 };
-let len = 1e6;
+
 let process.env.NODE_ENV = true;
+
 function test(len) {
-	const p = factory(`Generating a ${len} items long array`);
+	const p = factory(`Generating a 1e6 items long array`);
 	p.start();
 	const arr = [];
-	for (let i = 0; i < len; i++)
+	for (let i = 0; i < 1e6; i++)
 		arr.push(Math.random());
 	p.end();
 }

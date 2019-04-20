@@ -1,0 +1,19 @@
+{
+  "name": "levelup-plugin",
+  "version": "1.0.0",
+  "description": "Reimplementation of levelup",
+  "main": "levelSubscribeTest.js",
+  "scripts": {
+    "test": "node levelSubscribeTest.js"
+  },
+  "keywords": [
+    "levelDB",
+    "levelup",
+    "decorator"
+  ],
+  "author": "Timofei Shchepkin",
+  "license": "ISC",
+  "dependencies": {
+    "level": "^5.0.1"
+  }
+}
