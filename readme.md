@@ -35,4 +35,20 @@ https://www.npmjs.com/package/json-over-tcp
 http://www.passportjs.org/docs/
 https://www.npmjs.com/package/ini
 https://www.npmjs.com/package/object-path
-Notably, Passport.js http://passportjs.org - an authentification middleware for node enables support of different authentification providers (OAuth, localdb, custom) for requests, using Strategy pattern
+Notably, Passport.js http://passportjs.org - an authentification middleware for node enables support of different authentification providers (OAuth, localdb, custom) for requests, using Strategy pattern.
+
+Core J2EE Pattern - Intercepting Filter
+https://www.oracle.com/technetwork/java/interceptingfilter-142169.html
+
+Chain of Responsobility Pattern
+https://dzone.com/articles/design-patterns-uncovered-chain-of-responsibility
+
+ZeroMQ \zero-em-queue\, \ØMQ\:
+http://zeromq.org/
+
+koa next generation web framework for node.js 
+https://koajs.com/
+https://github.com/koajs/ratelimit
+
+
+
