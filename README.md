@@ -43,12 +43,28 @@ https://www.oracle.com/technetwork/java/interceptingfilter-142169.html
 Chain of Responsobility Pattern
 https://dzone.com/articles/design-patterns-uncovered-chain-of-responsibility
 
+Operational Transformation
+http://www.codecommit.com/blog/java/understanding-and-applying-operational-transformation
+
 ZeroMQ \zero-em-queue\, \ØMQ\:
 http://zeromq.org/
 
 koa next generation web framework for node.js 
 https://koajs.com/
 https://github.com/koajs/ratelimit
+
+URL-safe means of representing claims to be transferred between two parties 
+http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html
+
+Fast, unopinionated, minimalist web framework for node.
+https://www.npmjs.com/package/express
+
+Fast and simple storage. A Node.js wrapper for abstract-leveldown compliant stores, which follow the characteristics of LevelDB 
+https://www.npmjs.com/package/levelup
+
+Angular Magic of argument extraction
+https://www.npmjs.com/package/args-list
+
 
 
 
