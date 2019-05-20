@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type='text/javascript' src='node_modules/knockout/build/output/knockout-latest.js'></script>
+    <meta charset="UTF-8">
+    <script type='text/javascript' src='node_modules/jquery/dist/jquery.js'></script>
+    <title>KO practicum</title>
+</head>
+<body>
+<p>Today is <span data-bind="text: dayOfWeek"></span>.
+    It's time for <span data-bind="text: activity"></span></p>
+<p>Day: <input data-bind="value: day" /></p><p>Month: <input data-bind="value: month" /></p><p>Year: <input data-bind="value: year" /></p>
+<p>The current date is <span data-bind="text: fullDate"></span></p>
+
+<script>
+    function viewModel() {
+        this.day = ko.observable('20');
+        this.month = ko.observable('05');
+        this.year = ko.observable('2019');
+        this.fullDate = ko.computed(function() {
+        return this.day() + "/" + this.month() + "/" + this.year();
+        },this);
+    }
+        ko.applyBindings(new viewModel());
+</script>
+
+</body>
+</html>
