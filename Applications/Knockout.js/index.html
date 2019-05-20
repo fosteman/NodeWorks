@@ -7,20 +7,43 @@
     <title>KO practicum</title>
 </head>
 <body>
-<p>Today is <span data-bind="text: dayOfWeek"></span>.
+<p>Today is <span data-bind="text: day"></span>.
     It's time for <span data-bind="text: activity"></span></p>
-<p>Day: <input data-bind="value: day" /></p><p>Month: <input data-bind="value: month" /></p><p>Year: <input data-bind="value: year" /></p>
+<p>Day: <input data-bind="value: day, valueUpdate: 'afterkeyup'" /></p><p>Month: <input data-bind="value: month" /></p><p>Year: <input data-bind="value: year" /></p>
 <p>The current date is <span data-bind="text: fullDate"></span></p>
 
+<img data-bind="attr: {src: url, alt: details}" />
+
+<p data-bind="event: { mouseover: hello, mouseout: goodbye }"> Mouse over to trigger event
+<span data-bind="text: helloEnabled"></span>
+<span data-bind="text: goodbyeEnabled"></span>
+</p>
+
 <script>
+    //import * as ko from "knockout";
+
     function viewModel() {
-        this.day = ko.observable('20');
+        this.dayOfWeek = 'Monday'; // static, applied once page is loaded
+        this.activity = 'Work';
+
+        this.day = ko.observable('20'); // observable, binding is online.
         this.month = ko.observable('05');
         this.year = ko.observable('2019');
+
         this.fullDate = ko.computed(function() {
         return this.day() + "/" + this.month() + "/" + this.year();
         },this);
+
+        this.url = ko.observable('./logo.png');
+        this.details = ko.observable('Alternative text');
+
+        this.helloEnabled = ko.observable();
+        this.goodbyeEnabled = ko.observable();
+        this.hello = () => this.helloEnabled('Mouse in!') && this.goodbyeEnabled('');
+        this.goodbye = () => this.goodbyeEnabled('Mouse out!') && this.helloEnabled('');
+
     }
+
         ko.applyBindings(new viewModel());
 </script>
 
