@@ -1,6 +1,9 @@
 let q = `I studied the lives of great men and famous women, and I found that the men and women who got to the top were those who did the jobs they had in hand, with everything they had of energy and enthusiasm.
 —HARRY S TRUMAN
 N
+There are two ways of constructing a software design: One way is to make it so simple that there are obviously no deficiencies, and the other way is to make it so complicated that there are no obvious deficiencies.
+-C.A.R. Hoare, 1980 ACM Turing Award Lecture
+N
 Plough deep while sluggards sleep. —BENJAMIN FRANKLIN
 N
 Everything comes to him who hustles while he waits. —THOMAS EDISON
