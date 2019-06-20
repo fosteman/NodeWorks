@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "api": "json-server ./RESTful-API/quotes.js -p 3006",
-    "frontend": "parcel index.html -p 3005 --open"
+    "frontend": "parcel index.html -p 3005 --open",
   },
   "author": "Timofei Shchepkin",
   "license": "ISC",
