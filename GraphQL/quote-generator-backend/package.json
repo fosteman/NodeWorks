@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon server.js"
-  },
+  "start": "nodemon server.js"
+},
   "dependencies": {
     "express": "~4.16.1",
     "express-graphql": "^0.8.0",
