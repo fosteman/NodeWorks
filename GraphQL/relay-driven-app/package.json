@@ -4,7 +4,7 @@
   "description": "React Application communicating with GraphQL backend using Relay library. Webpack and Babel are used in this project. React directly reads MongoDB based GraphQL scehma",
   "main": "index.mjs",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "babel-node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
