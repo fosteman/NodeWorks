@@ -12,8 +12,18 @@ const queryType = new GraphQLObjectType({
     name: 'RootQuery',
     fields: {
         diceRoll: {
-            type: GraphQLList(GraphQLInt),
-            resolve: () => [roll(), roll()]
+            type: new GraphQLList(GraphQLInt),
+            args: {
+                count: { type: GraphQLInt,
+                defaultValue: 2}
+            },
+            resolve: (_, args) => {
+                let rolls = [];
+                for (let i = 0; i < args.count; i++) {
+                    rolls.push(roll());
+                }
+                return rolls;
+            }
         },
         imgURL: {
             type: GraphQLString,
