@@ -1,5 +1,7 @@
 const {GraphQLInt, GraphQLList, GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInterfaceType, GraphQLUnionType, GraphQLEnumType, GraphQLBoolean} = require('graphql');
 
+
+
 const roll = () => Math.floor(6 * Math.random()) + 1;
 const LetterCaseType = new GraphQLEnumType({
     name: 'LetterCase',
