@@ -23,6 +23,10 @@
     "express-graphql": "^0.8.0",
     "graphql": "^14.3.1",
     "mongodb": "^3.2.7",
-    "relay": "^0.8.0-1"
+    "relay": "^0.8.0-1",
+    "webpack": "^4.35.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.5"
   }
 }
