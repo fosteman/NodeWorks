@@ -14,8 +14,10 @@ const queryType = new GraphQLObjectType({
         diceRoll: {
             type: new GraphQLList(GraphQLInt),
             args: {
-                count: { type: GraphQLInt,
-                defaultValue: 2}
+                count: {
+                    type: GraphQLInt,
+                    defaultValue: 2
+                }
             },
             resolve: (_, args) => {
                 let rolls = [];
@@ -28,7 +30,13 @@ const queryType = new GraphQLObjectType({
         imgURL: {
             type: GraphQLString,
             resolve: () => 'http://imgUrl...'
-        } }
+        },
+        usersCount: {
+            type: GraphQLInt,
+            resolve: (_, args, { db }) =>
+                db.collection('users').count()
+        }
+    }
 });
 const mySchema = new GraphQLSchema({
     query: queryType

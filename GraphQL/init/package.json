@@ -9,6 +9,7 @@
   "author": "Timofei Shchepkin",
   "license": "ISC",
   "dependencies": {
-    "graphql": "^14.3.1"
+    "graphql": "^14.3.1",
+    "mongodb": "^3.2.7"
   }
 }
