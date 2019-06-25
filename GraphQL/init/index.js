@@ -1,18 +1,13 @@
-import {GraphQLSchema, GraphQLObjectType, GraphQLString} from 'graphql'
-
-//Instantiate GraphQLSchema instance
-export const mySchema  = new GraphQLSchema({
-    //root query, mutation definitions
-    query: queryType //query property
+const { graphql } = require('graphql');
+const readline = require('readline');
+const mySchema = require('./schema');
+const rli = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
 });
-
-//The query and mutation properties are instances of the GraphQLObjectType class.
-const queryType = new GraphQLObjectType({
-    name: 'RootQuery',
-    fields: {
-        hello: {
-            type: GraphQLString,
-            resolve: () => 'world' // is executed whenever hello is requested. hello is hence resolved with the return value 'world'
-        }
-    }
+rli.question('Client Request: ', inputQuery => {
+    graphql(mySchema, inputQuery).then(result => {
+        console.log('Server Answer :', result.data);
+    });
+    rli.close();
 });
