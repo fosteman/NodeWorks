@@ -13,6 +13,7 @@ const queryType = new GraphQLObjectType({
     fields: {
         diceRoll: {
             type: new GraphQLList(GraphQLInt),
+            description: '***Simulate** a dice roll determined by count',
             args: {
                 count: {
                     type: GraphQLInt,
@@ -32,6 +33,7 @@ const queryType = new GraphQLObjectType({
             resolve: () => 'http://imgUrl...'
         },
         usersCount: {
+            description: 'Total number of users in the database',
             type: GraphQLInt,
             resolve: (_, args, { db }) =>
                 db.collection('users').count()
