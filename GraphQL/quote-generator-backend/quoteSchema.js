@@ -32,9 +32,9 @@ const queryType = new GraphQLObjectType({
             resolve: (_, args, {db}) => db.collection('quote-collection').count()
         },
         randomQuote: {
-            type: QuoteType,
+            type: GraphQLList(QuoteType),
             description: 'Returns a randomly picked quote',
-            resolve: (_, args, {db}) => db.collection('quote-collection').aggregate({ $sample: { size: 1 } })
+            resolve: (_, args, {db}) => db.collection('quote-collection').aggregate([{ $sample: { size: 1 } }]).toArray()
         }
     }
 });
