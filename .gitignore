@@ -13,3 +13,4 @@ Applications/.DS_Store
 Design Patterns/.DS_Store
 Applications/.DS_Store
 GraphQL/quote-generator-backend/server.js
+GraphQL/quote-generator-backend/.env
