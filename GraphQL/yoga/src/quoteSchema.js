@@ -1,4 +1,4 @@
-const {GraphQLList, GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLInt} = require("graphql");
+const {GraphQLList, GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLInt} = require('graphql');
 
 const QuoteType = new GraphQLObjectType({
     name: 'Quote',
@@ -29,7 +29,7 @@ const queryType = new GraphQLObjectType({
         count: {
             type: GraphQLInt,
             description: 'Count of all stored quotes',
-            resolve: (_, args, {db}) => db.collection('quote-collection').count()
+            resolve: (_, args, {db}) => db.collection('quote-collection').estimatedDocumentCount()
         },
         randomQuote: {
             type: GraphQLList(QuoteType),
@@ -38,5 +38,6 @@ const queryType = new GraphQLObjectType({
         }
     }
 });
-const schema = new GraphQLSchema({query:queryType });
+
+const schema = new GraphQLSchema({ query: queryType });
 module.exports = schema;
