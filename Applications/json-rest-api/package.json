@@ -1,0 +1,43 @@
+{
+  "name": "json-api",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "lint": "eslint .",
+    "testRoutes": "mocha --require babel-register tests/*. --exit"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "no-console": 0,
+      "no-unused-vars": 1
+    }
+  },
+  "author": "Timofei Shchepkin <dgrz5.0@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "query-string": "^6.8.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.1.1",
+    "nodemon": "^1.9.2",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.0.0",
+    "mocha": "^6.1.4",
+    "morgan": "^1.8.0"
+  }
+}
