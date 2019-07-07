@@ -1,4 +1,4 @@
-const HTTP_PORT = process.env.PORT || 3001;
+const HTTP_PORT = process.env.PORT || 3010;
 
 const express = require("express");
 const morgan = require("morgan");
