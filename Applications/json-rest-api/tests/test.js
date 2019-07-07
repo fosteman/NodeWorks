@@ -44,44 +44,48 @@ describe("Hatchways json-api", () => {
 
     describe("Query functions", () => {
         it("sorts posts by acceptable fields", done => {
-            let sortedRequest = url + '?' + q.stringify({sortBy: ['id', 'reads', 'likes', 'popularity']});
+            let sort = q.stringify({sortBy: ['id', 'reads', 'likes', 'popularity']});
+            let sortedRequest = url + '?' + sort;
 
-            chai.request(app)
-                .get(sortedRequest)
-                .end((err, res) => {
-                    res.should.have.status(200);
-
-                    //get working version's response
-                    //compare
-
-                    done();
-                });
+            fetch('https://hatchways.io/api/assessment/solution/posts?' + sort)
+                .then(res => res.json())
+                .then(correct => chai.request(app)
+                    .get(sortedRequest)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.strictEqual(correct);
+                        done();
+                    }));
         });
         it("filters by tags iteratively", done => {
-            let taggedRequest = url + '?' + q.stringify({tags: ['tech', 'health']});
-            chai.request(app)
-                .get(taggedRequest)
-                .end((err, res) => {
-                    res.should.have.status(200);
+            let tags = q.stringify({tags: ['tech', 'health']});
+            let taggedRequest = url + '?' + tags;
 
-                    //get working version's response
-                    //compare
-
-                    done();
-                });
+            fetch('https://hatchways.io/api/assessment/solution/posts?' + tags)
+                .then(res => res.json())
+                .then(correct => chai.request(app)
+                    .get(taggedRequest)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.strictEqual(correct);
+                        done();
+                    })
+                );
         });
         it("directs order", done => {
-            let directedRequest = url + '?' + q.stringify({direction: 'asc'});
-            chai.request(app)
-                .get(directedRequest)
-                .end((err, res) => {
-                    res.should.have.status(200);
+            let direction = q.stringify({direction: 'asc'});
+            let directedRequest = url + '?' + direction;
 
-                    //get working version's response
-                    //compare
-
-                    done();
-                });
+            fetch('https://hatchways.io/api/assessment/solution/posts?' + direction)
+                .then(res => res.json())
+                .then(correct => chai.request(app)
+                    .get(directedRequest)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.strictEqual(correct);
+                        done();
+                    })
+                );
         });
     }); // Query function
 }); // Hatchways json-api
