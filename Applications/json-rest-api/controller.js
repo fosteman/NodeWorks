@@ -7,13 +7,13 @@ const publicAPI = 'https://hatchways.io/api/assessment/blog/posts?tag=';
 
 export default function getPosts(req, res) {
     //Empty query
-    if (tags !== undefined && req.query.tags) return res.status(400).json({ error: "Tags parameter is required" });
+    if (req.query.tags !== undefined) return res.status(400).json({ error: "Tags parameter is required" });
 
     let direction = req.query.direction || "asc";
     let results = [];
     let promises = [];
 
-    let {tags} = q.parse(req.query.tags, {arrayFormat: 'comma'});
+    let tags = q.parse(req.query.tags, {arrayFormat: 'comma'});
     l.info(tags);
     tags.forEach(tag => promises.push(axios.get(publicAPI + tag).then(result => results.push(result))));
     l.info(results);

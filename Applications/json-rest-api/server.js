@@ -2,7 +2,8 @@ import express from "express"
 import morgan from "morgan"
 import bodyParser from "body-parser"
 import cors  from "cors"
-import apicache  from'apicache'
+import apicache  from 'apicache'
+import getPosts from './controller.js'
 
 const HTTP_PORT = process.env.PORT || 3010;
 const app = express();
@@ -17,7 +18,9 @@ app.use(bodyParser.json());
 
 app.get('/api/ping', (req, res) => res.status(200).json({"success": true}));
 
-app.get('/api/posts',cache('30 minutes'), './controller.js');
+app.get('/api/posts',cache('30 minutes'), getPosts);
 
 
 app.listen(HTTP_PORT);
+
+export default app

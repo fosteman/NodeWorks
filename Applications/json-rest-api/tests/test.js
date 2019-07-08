@@ -1,8 +1,9 @@
-import chai from 'chai';
-import chaiHttp from 'chai-http';
-import app from '../server';
-import q from 'query-string';
-
+import chai from 'chai'
+import chaiHttp from 'chai-http'
+import app from '../server'
+import q from 'query-string'
+import axios from 'axios'
+import l from '../winston'
 chai.use(chaiHttp);
 chai.should();
 
@@ -20,7 +21,7 @@ describe("Hatchways json-api", () => {
                     res.body.should.strictEqual({"error": "Tags parameter is required"}, '');
 
                     done();
-                });
+                }).catch(err => l.error(err));
         });
         it("responds 400 for invalid sortBy", done => {
             let invalidRequest = url + '?' + q.stringify({sortBy: ['TYPO', 'reads', 'likess', 'popuLarity']});
@@ -43,26 +44,25 @@ describe("Hatchways json-api", () => {
     }); //Error Responses
 
     describe("Query functions", () => {
-        it("sorts posts by acceptable fields", done => {
+        it("Post sorting", done => {
             let sort = q.stringify({sortBy: ['id', 'reads', 'likes', 'popularity']});
             let sortedRequest = url + '?' + sort;
 
-            fetch('https://hatchways.io/api/assessment/solution/posts?' + sort)
-                .then(res => res.json())
+            axios('https://hatchways.io/api/assessment/solution/posts?' + sort)
                 .then(correct => chai.request(app)
                     .get(sortedRequest)
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.strictEqual(correct);
                         done();
-                    }));
+                    }))
+                .catch(err => l.error(err));
         });
         it("filters by tags iteratively", done => {
             let tags = q.stringify({tags: ['tech', 'health']});
             let taggedRequest = url + '?' + tags;
 
-            fetch('https://hatchways.io/api/assessment/solution/posts?' + tags)
-                .then(res => res.json())
+            axios('https://hatchways.io/api/assessment/solution/posts?' + tags)
                 .then(correct => chai.request(app)
                     .get(taggedRequest)
                     .end((err, res) => {
@@ -70,13 +70,13 @@ describe("Hatchways json-api", () => {
                         res.body.should.strictEqual(correct);
                         done();
                     })
-                );
+                ).catch(err => l.error(err));
         });
         it("directs order", done => {
             let direction = q.stringify({direction: 'asc'});
             let directedRequest = url + '?' + direction;
 
-            fetch('https://hatchways.io/api/assessment/solution/posts?' + direction)
+            axios('https://hatchways.io/api/assessment/solution/posts?' + direction)
                 .then(res => res.json())
                 .then(correct => chai.request(app)
                     .get(directedRequest)
@@ -85,7 +85,7 @@ describe("Hatchways json-api", () => {
                         res.body.should.strictEqual(correct);
                         done();
                     })
-                );
+                ).catch(err => l.error(err));
         });
     }); // Query function
 }); // Hatchways json-api
