@@ -1,5 +1,5 @@
 import axios from 'axios';
-import l from 'winston';
+import l from './winston';
 import {map} from './helpers';
 import q from 'query-string';
 import _ from 'lodash';
@@ -7,14 +7,15 @@ const publicAPI = 'https://hatchways.io/api/assessment/blog/posts?tag=';
 
 export default function getPosts(req, res) {
     //Empty query
-    if (req.query.tags !== undefined) return res.status(400).json({ error: "Tags parameter is required" });
+    if (req.query.tags === undefined || req.query.tags.length < 1) return res.status(400).json({ error: "Tags parameter is required" });
 
     let direction = req.query.direction || "asc";
     let results = [];
     let promises = [];
 
     let tags = q.parse(req.query.tags, {arrayFormat: 'comma'});
-    l.info(tags);
+    l.info('query.tags: %o', tags);
+
     tags.forEach(tag => promises.push(axios.get(publicAPI + tag).then(result => results.push(result))));
     l.info(results);
     axios.all(promises).then(() => {
