@@ -12,7 +12,5 @@ const map = data => {
     for (let key in post) posts.push(post[key]);
     return posts;
 };
-export default {
-    map
-}
+export default map
 
