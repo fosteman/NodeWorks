@@ -17,12 +17,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-app.get('/api/ping', (req, res) =>
-    res.sendStatus(200).json({"success": true}));
+app.get('/api/ping', (req, res) => res.status(200).json({"success": true}));
 
-app.get('/api/posts',cache('30 minutes'), getTags);
-
-app.get('/api/posts/sortBy',cache('30 minutes'), sortPosts);
+app.get('/api/posts',cache('30 minutes'), getPosts);
 
 //app.use((req, res) => res.status(404).end());
 
