@@ -1,12 +1,11 @@
-const HTTP_PORT = process.env.PORT || 3010;
-const express = require("express");
-const morgan = require("morgan");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const app = express();
-const apicache = require('apicache');
-const { getTags, sortPosts } = require('./controller.js');
+import express from "express"
+import morgan from "morgan"
+import bodyParser from "body-parser"
+import cors  from "cors"
+import apicache  from'apicache'
 
+const HTTP_PORT = process.env.PORT || 3010;
+const app = express();
 //Caching
 const cache = apicache.middleware;
 //Logging
@@ -16,11 +15,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 app.get('/api/ping', (req, res) => res.status(200).json({"success": true}));
 
-app.get('/api/posts',cache('30 minutes'), getPosts);
+app.get('/api/posts',cache('30 minutes'), './controller.js');
 
-//app.use((req, res) => res.status(404).end());
 
 app.listen(HTTP_PORT);

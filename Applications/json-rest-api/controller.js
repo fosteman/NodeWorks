@@ -5,7 +5,7 @@ import q from 'query-string';
 import _ from 'lodash';
 const publicAPI = 'https://hatchways.io/api/assessment/blog/posts?tag=';
 
-const getPosts = (req, res) => {
+export default function getPosts(req, res) {
     //Empty query
     if (tags !== undefined && req.query.tags) return res.status(400).json({ error: "Tags parameter is required" });
 
@@ -42,11 +42,4 @@ const getPosts = (req, res) => {
         //finally
         res.json(results);
     });
-};
-
-
-
-
-module.exports = {
-    getPosts
 };
