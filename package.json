@@ -28,7 +28,7 @@
     "level-sublevel": "^6.6.5",
     "levelup": "^4.0.1",
     "mongodb": "^3.2.7",
-    "object-path": "^0.11.4",
+    "object-path": "^0.11.5",
     "parse-fn-args": "^1.0.1",
     "relay": "^0.8.0-1",
     "stamp": "^4.0.2",
