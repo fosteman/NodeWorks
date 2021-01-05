@@ -16,7 +16,7 @@
   "author": "Timofei Shchepkin",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "brcypt": "^1.0.1",
     "express": "latest",
     "graphql": "^14.3.1",
