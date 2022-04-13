@@ -4,7 +4,7 @@
   "description": "",
   "main": "spider.js",
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^3.2.2",
     "fs": "0.0.1-security",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7",
